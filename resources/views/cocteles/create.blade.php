@@ -7,26 +7,67 @@
     <form action="{{ route('cocktails.store') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
         @csrf
 
-        <div class="mb-4">
-            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre del Cóctel</label>
-            <input type="text" name="nombre" id="nombre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+        <!-- Nombre del Cóctel -->
+        <div class="form-group mb-4">
+            <label for="nombre" class="form-label">Nombre del Cóctel</label>
+            <input type="text" name="nombre" id="nombre" class="form-input" required>
         </div>
 
-        <div class="mb-4">
-            <label for="categoria" class="block text-sm font-medium text-gray-700">Categoría</label>
-            <input type="text" name="categoria" id="categoria" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <!-- Categoría -->
+        <div class="form-group mb-4">
+            <label for="categoria" class="form-label">Categoría</label>
+            <input type="text" name="categoria" id="categoria" class="form-input">
         </div>
 
-        <div class="mb-4">
-            <label for="tipo_bebida" class="block text-sm font-medium text-gray-700">Tipo de Bebida</label>
-            <input type="text" name="tipo_bebida" id="tipo_bebida" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <!-- Tipo de Bebida -->
+        <div class="form-group mb-4">
+            <label for="tipo_bebida" class="form-label">Tipo de Bebida</label>
+            <input type="text" name="tipo_bebida" id="tipo_bebida" class="form-input">
         </div>
 
+        <!-- Botón de Guardar -->
         <div class="mt-6">
-            <button type="submit" class="w-full bg-green-500 text-black px-4 py-2 border border-gray-300 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <button type="submit" class="btn-submit w-full">
                 Guardar Cóctel
             </button>
         </div>
     </form>
 </div>
 @endsection
+
+<style>
+    /* Estilos Generales */
+    .form-group label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #4A4A4A;
+    }
+
+    .form-input {
+        margin-top: 0.25rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        border: 1px solid #D1D5DB;
+        border-radius: 0.375rem;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+        ring: 2px;
+        ring-color: #3B82F6;
+    }
+
+    .btn-submit {
+        background-color: #10B981;
+        color: black;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        border: 1px solid #D1D5DB;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #059669;
+    }
+</style>

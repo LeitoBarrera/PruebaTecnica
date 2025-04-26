@@ -4,6 +4,18 @@
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-semibold mb-6">Listado de Cócteles</h1>
 
+    <div class="flex justify-center gap-4 mb-6">
+        <!-- Botón Ver Cócteles Guardados -->
+        <a href="{{ route('cocktails.saved') }}" class="btn-primary">
+            Ver cócteles guardados
+        </a>
+
+        <!-- Botón Crear Nuevo Cóctel -->
+        <a href="{{ route('cocktails.create') }}" class="btn-secondary">
+            Crear Nuevo Cóctel
+        </a>
+    </div>
+
     @foreach ($cocteles as $cocktail)
         <div class="bg-white p-4 rounded-md shadow-md mb-4 flex justify-between items-center">
             <div>
@@ -18,19 +30,13 @@
                 <input type="hidden" name="categoria" value="{{ $cocktail['strCategory'] }}">
                 <input type="hidden" name="tipo_bebida" value="{{ $cocktail['strAlcoholic'] }}">
 
-                <button type="submit" class="bg-white border border-black text-black px-4 py-2 rounded-md hover:bg-gray-100 shadow">
+                <button type="submit" class="btn-action">
                     Guardar
                 </button>
             </form>
         </div>
     @endforeach
 
-    <!-- Botón para ver cócteles guardados -->
-    <div class="text-center mt-10">
-        <a href="{{ route('cocktails.saved') }}" class="inline-block border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-600 hover:text-white transition">
-            Ver cócteles guardados
-        </a>
-    </div>
 </div>
 
 <!-- Pop-up de éxito -->
@@ -38,7 +44,6 @@
     <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
         <div class="bg-white p-6 rounded-md shadow-md">
             <p>{{ session('success') }}</p>
-            <button id="close-popup" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded-md">Cerrar</button>
         </div>
     </div>
 @endif
@@ -47,22 +52,63 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // Verifica si hay un mensaje de éxito
         @if(session('success'))
-            // Muestra el pop-up
             $('#success-popup').fadeIn();
-
-            // Después de 3 segundos (3000 milisegundos), cierra el pop-up automáticamente
             setTimeout(function() {
                 $('#success-popup').fadeOut();
-            }, 3000); // Cambia 3000 por el tiempo en milisegundos que deseas
+            }, 3000);
         @endif
 
-        // Cerrar el pop-up cuando se hace clic en el botón
         $('#close-popup').click(function() {
             $('#success-popup').fadeOut();
         });
     });
 </script>
-
 @endsection
+
+<style>
+    /* Botón primario (Ver cócteles guardados) */
+    .btn-primary {
+        display: inline-block;
+        border: 1px solid #000;
+        color: #000;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #f1f5f9;
+    }
+
+    /* Botón secundario (Crear nuevo cóctel) */
+    .btn-secondary {
+        display: inline-block;
+        border: 1px solid #10B981;
+        color: #10B981;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background-color: #059669;
+        color: white;
+    }
+
+    /* Botón de acción (Guardar cóctel) */
+    .btn-action {
+        background-color: #10B981;
+        color: black;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        border: 1px solid #D1D5DB;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-action:hover {
+        background-color: #059669;
+    }
+</style>
