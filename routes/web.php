@@ -4,10 +4,31 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CocktailController;
 use Illuminate\Support\Facades\Route;
 
-// Ruta principal
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('welcome'); // ahora usaremos nuestra propia 'welcome.blade.php'
+})->name('inicio');
+
+
+Route::get('/inicio', function () {
+    return view('inicio');
+})->name('inicio');
+
+Route::get('/buscar', function () {
+    return view('buscar');
+})->name('buscar');
+
+Route::get('/usuarios', function () {
+    return view('usuarios');
+})->name('usuarios');
+
+Route::get('/archivos', function () {
+    return view('archivos');
+})->name('archivos');
+
+Route::get('/trabajos', function () {
+    return view('trabajos');
+})->name('trabajos');
+
 
 // Dashboard (protección con autenticación y verificación)
 Route::get('/dashboard', function () {
