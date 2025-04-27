@@ -17,25 +17,25 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased bg-black text-white">
     <div class="min-h-screen flex flex-col">
 
         <!-- NAVBAR -->
-        <nav class="bg-white shadow-md fixed bottom-0 w-full md:static md:top-0 z-50">
+        <nav class="bg-black shadow-md w-full">
             <div class="flex justify-around md:justify-center md:space-x-24 py-4">
-                <a href="{{ url('/') }}" class="text-gray-500 hover:text-black">
+                <a href="{{ url('/') }}" class="text-gray-400 hover:text-yellow-400">
                     <i class="fas fa-home fa-2x"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-black">
+                <a href="#" class="text-gray-400 hover:text-yellow-400">
                     <i class="fas fa-search fa-2x"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-black">
+                <a href="#" class="text-gray-400 hover:text-yellow-400">
                     <i class="fas fa-users fa-2x"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-black">
+                <a href="#" class="text-gray-400 hover:text-yellow-400">
                     <i class="fas fa-folder fa-2x"></i>
                 </a>
-                <a href="#" class="text-gray-500 hover:text-black">
+                <a href="#" class="text-gray-400 hover:text-yellow-400">
                     <i class="fas fa-briefcase fa-2x"></i>
                 </a>
             </div>
@@ -43,7 +43,7 @@
 
         <!-- Page Heading -->
         @isset($header)
-            <header class="bg-white shadow mt-16 md:mt-0">
+            <header class="bg-black shadow mt-16 md:mt-0">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>

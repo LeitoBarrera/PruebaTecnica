@@ -2,19 +2,19 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-semibold mb-6">Cócteles Guardados</h1>
+    <h1 class="text-3xl font-semibold mb-6 text-yellow-400">Cócteles Guardados</h1>
 
     @foreach ($cocteles as $cocktail)
-        <div class="cocktail-card mb-4">
+        <div class="cocktail-card mb-6 p-6 rounded-lg shadow-lg bg-gray-800 flex justify-between items-center">
             <div>
-                <h2 class="cocktail-title">{{ $cocktail->nombre }}</h2>
-                <p class="cocktail-category">Categoría: {{ $cocktail->categoria }}</p>
-                <p class="cocktail-type">Tipo de bebida: {{ $cocktail->tipo_bebida }}</p>
+                <h2 class="cocktail-title text-2xl font-bold mb-2">{{ $cocktail->nombre }}</h2>
+                <p class="cocktail-category text-gray-400">Categoría: {{ $cocktail->categoria }}</p>
+                <p class="cocktail-type text-gray-400">Tipo de bebida: {{ $cocktail->tipo_bebida }}</p>
             </div>
 
             <div class="flex gap-4">
                 <!-- Botón de Editar -->
-                <a href="{{ route('cocktails.edit', $cocktail->id) }}" class="btn-edit">
+                <a href="{{ route('cocktails.edit', $cocktail->id) }}" class="btn-edit bg-yellow-400 text-black px-4 py-2 rounded-md hover:bg-yellow-300 transition">
                     Editar
                 </a>
 
@@ -22,97 +22,47 @@
                 <form action="{{ route('cocktails.destroy', $cocktail->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este cóctel?');">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn-delete">
+                    <button type="submit" class="btn-delete bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition">
                         Eliminar
                     </button>
                 </form>
             </div>
         </div>
     @endforeach
+
+    <!-- Botón Volver -->
+    <div class="mt-8">
+        <a href="/cocteles" class="bg-yellow-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-md transition">
+            Volver
+        </a>
+    </div>
 </div>
 
 <!-- Pop-up de éxito -->
 @if(session('success'))
-    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white p-6 rounded-md shadow-md">
-            <p>{{ session('success') }}</p>
-            <button id="close-popup" class="bg-green-600 text-white px-4 py-2 mt-4 rounded-md">Cerrar</button>
+    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+        <div class="bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+            <p class="text-white">{{ session('success') }}</p>
+            <button id="close-popup" class="bg-green-600 text-white px-6 py-2 mt-6 rounded-md hover:bg-green-700 transition">
+                Cerrar
+            </button>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Muestra el pop-up con un efecto de fadeIn
             $('#success-popup').fadeIn();
 
-            // Cierra el pop-up cuando se hace clic en el botón "Cerrar"
             $('#close-popup').click(function() {
                 $('#success-popup').fadeOut();
-                // Redirige a la página de cócteles después de cerrar el pop-up
                 window.location.href = "{{ route('cocktails.index') }}";
             });
 
-            // Redirige automáticamente después de 3 segundos si el pop-up no se cierra
             setTimeout(function() {
                 window.location.href = "{{ route('cocktails.index') }}";
-            }, 3000); // Cambia el tiempo si lo deseas
+            }, 3000);
         });
     </script>
 @endif
 @endsection
-
-<style>
-    /* Estilo para la tarjeta del cóctel */
-    .cocktail-card {
-        background-color: #fff;
-        padding: 1rem;
-        border-radius: 0.375rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    /* Título del cóctel */
-    .cocktail-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-    }
-
-    /* Categoría y tipo de bebida */
-    .cocktail-category, .cocktail-type {
-        font-size: 1rem;
-        color: #4b5563;
-    }
-
-    /* Botón de Editar */
-    .btn-edit {
-        background-color: #fff;
-        border: 1px solid #000;
-        color: #000;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        text-align: center;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-edit:hover {
-        background-color: #f1f5f9;
-    }
-
-    /* Botón de Eliminar */
-    .btn-delete {
-        background-color: #dc2626;
-        border: 1px solid #9b1c1c;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        text-align: center;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-delete:hover {
-        background-color: #b91c1c;
-    }
-</style>

@@ -1,49 +1,73 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 max-w-xl">
-    <h1 class="text-2xl font-bold mb-4">Editar Cóctel</h1>
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-semibold mb-6 text-yellow-400">Editar Cóctel</h1>
 
-    <form action="{{ route('cocktails.update', $cocktail->id) }}" method="POST" class="bg-white p-6 rounded shadow">
+    <form action="{{ route('cocktails.update', $cocktail->id) }}" method="POST" class="bg-gray-800 p-8 rounded-lg shadow-lg">
         @csrf
         @method('PUT')
 
-        <!-- Campo Nombre -->
-        <div class="form-group mb-4">
-            <label for="nombre" class="block font-semibold mb-1">Nombre</label>
-            <input type="text" name="nombre" id="nombre" value="{{ $cocktail->nombre }}" class="input-field" required>
+        <!-- Nombre -->
+        <div class="mb-6">
+            <label for="nombre" class="block text-sm font-medium text-gray-300 mb-2">Nombre</label>
+            <input 
+                type="text" 
+                name="nombre" 
+                id="nombre" 
+                value="{{ $cocktail->nombre }}" 
+                class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                required
+            >
         </div>
 
-        <!-- Campo Categoría -->
-        <div class="form-group mb-4">
-            <label for="categoria" class="block font-semibold mb-1">Categoría</label>
-            <input type="text" name="categoria" id="categoria" value="{{ $cocktail->categoria }}" class="input-field">
+        <!-- Categoría -->
+        <div class="mb-6">
+            <label for="categoria" class="block text-sm font-medium text-gray-300 mb-2">Categoría</label>
+            <input 
+                type="text" 
+                name="categoria" 
+                id="categoria" 
+                value="{{ $cocktail->categoria }}" 
+                class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
         </div>
 
-        <!-- Campo Tipo de Bebida -->
-        <div class="form-group mb-4">
-            <label for="tipo_bebida" class="block font-semibold mb-1">Tipo de Bebida</label>
-            <input type="text" name="tipo_bebida" id="tipo_bebida" value="{{ $cocktail->tipo_bebida }}" class="input-field">
+        <!-- Tipo de Bebida -->
+        <div class="mb-6">
+            <label for="tipo_bebida" class="block text-sm font-medium text-gray-300 mb-2">Tipo de Bebida</label>
+            <input 
+                type="text" 
+                name="tipo_bebida" 
+                id="tipo_bebida" 
+                value="{{ $cocktail->tipo_bebida }}" 
+                class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
         </div>
 
         <!-- Botones de acción -->
-        <div class="flex justify-between mt-4">
-            <a href="{{ route('cocktails.saved') }}" class="btn-cancelar">
+        <div class="flex flex-col md:flex-row md:justify-between gap-4 mt-8">
+            <button 
+                type="submit" 
+                class="w-full md:w-auto bg-yellow-400 text-black font-semibold py-3 px-6 rounded-md hover:bg-green-300 transition">
+                Actualizar Cóctel
+            </button>
+
+            <a 
+                href="/cocteles" 
+                class="w-full md:w-auto bg-red-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-red-500 transition text-center">
                 Cancelar
             </a>
-            <button type="submit" class="btn-actualizar">
-                Actualizar
-            </button>
         </div>
     </form>
 </div>
 
 @if(session('success'))
     <!-- Pop-up de éxito -->
-    <div id="success-popup" class="popup-overlay flex justify-center items-center z-50">
-        <div class="popup-content bg-white p-6 rounded-md shadow-md">
-            <p>{{ session('success') }}</p>
-            <button id="close-popup" class="btn-close">
+    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-black p-6 rounded-md shadow-md text-center">
+            <p class="mb-4 text-green-600 font-semibold">{{ session('success') }}</p>
+            <button id="close-popup" class="bg-yellow-400 hover:bg-green-300 text-black font-bold py-2 px-4 rounded">
                 Cerrar
             </button>
         </div>
@@ -52,98 +76,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Muestra el pop-up con un efecto de fadeIn
             $('#success-popup').fadeIn();
 
-            // Cierra el pop-up cuando se hace clic en el botón "Cerrar"
             $('#close-popup').click(function() {
                 $('#success-popup').fadeOut();
-                // Redirige a la página de cócteles guardados después de cerrar el pop-up
                 window.location.href = "{{ route('cocktails.saved') }}";
             });
 
-            // Redirige automáticamente después de 3 segundos si el pop-up no se cierra
             setTimeout(function() {
                 window.location.href = "{{ route('cocktails.saved') }}";
-            }, 3000); // Cambia el tiempo si lo deseas
+            }, 3000);
         });
     </script>
 @endif
-
 @endsection
-
-<!-- Estilos -->
-<style>
-    /* Estilos generales */
-    .input-field {
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 0.375rem;
-        border: 1px solid #d1d5db;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
-
-    /* Botón Cancelar */
-    .btn-cancelar {
-        padding: 0.5rem 1rem;
-        border: 1px solid #4caf50;
-        background-color: white;
-        color: #4caf50;
-        border-radius: 0.375rem;
-        transition: background-color 0.3s;
-    }
-
-    .btn-cancelar:hover {
-        background-color: #4caf50;
-        color: white;
-    }
-
-    /* Botón Actualizar */
-    .btn-actualizar {
-        padding: 0.5rem 1rem;
-        border: 1px solid #4caf50;
-        background-color: #4caf50;
-        color: white;
-        border-radius: 0.375rem;
-        transition: background-color 0.3s;
-    }
-
-    .btn-actualizar:hover {
-        background-color: #45a049;
-    }
-
-    /* Pop-up */
-    .popup-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: none;
-    }
-
-    .popup-content {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 0.375rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Botón de Cerrar Pop-up */
-    .btn-close {
-        padding: 0.5rem 1rem;
-        background-color: #4caf50;
-        color: white;
-        border-radius: 0.375rem;
-        border: none;
-        cursor: pointer;
-    }
-
-    .btn-close:hover {
-        background-color: #45a049;
-    }
-</style>

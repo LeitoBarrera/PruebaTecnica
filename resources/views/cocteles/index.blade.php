@@ -1,49 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-semibold mb-6">Listado de Cócteles</h1>
+<div class="min-h-screen bg-black text-yellow-400 container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center text-yellow-400 mb-10 animate-slide-fade-down">
+        Listado de Cócteles
+    </h1>
 
-    <div class="flex justify-center gap-4 mb-6">
+    <div class="flex justify-center gap-6 mb-10">
         <!-- Botón Ver Cócteles Guardados -->
-        <a href="{{ route('cocktails.saved') }}" class="btn-primary">
-            Ver cócteles guardados
+        <a href="{{ route('cocktails.saved') }}" class="bg-yellow-400 text-black font-semibold py-2 px-6 rounded hover:bg-yellow-300 transition duration-300">
+            Ver Cócteles Guardados
         </a>
 
         <!-- Botón Crear Nuevo Cóctel -->
-        <a href="{{ route('cocktails.create') }}" class="btn-secondary">
+        <a href="{{ route('cocktails.create') }}" class="bg-green-500 text-white hover:bg-green-600 font-semibold py-2 px-6 rounded transition duration-300">
             Crear Nuevo Cóctel
         </a>
     </div>
 
-    @foreach ($cocteles as $cocktail)
-        <div class="bg-white p-4 rounded-md shadow-md mb-4 flex justify-between items-center">
-            <div>
-                <h2 class="text-xl font-bold">{{ $cocktail['strDrink'] }}</h2>
-                <p>Categoría: {{ $cocktail['strCategory'] ?? 'No disponible' }}</p>
-                <p>Tipo de bebida: {{ $cocktail['strAlcoholic'] ?? 'No disponible' }}</p>
+    <div class="grid gap-6 md:grid-cols-2">
+        @foreach ($cocteles as $cocktail)
+            <div class="bg-gray-900 p-6 rounded-lg shadow-lg flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
+                <div>
+                    <h2 class="text-2xl font-bold text-yellow-400 mb-2">{{ $cocktail['strDrink'] }}</h2>
+                    <p class="text-gray-400">Categoría: <span class="font-semibold">{{ $cocktail['strCategory'] ?? 'No disponible' }}</span></p>
+                    <p class="text-gray-400">Tipo de bebida: <span class="font-semibold">{{ $cocktail['strAlcoholic'] ?? 'No disponible' }}</span></p>
+                </div>
+
+                <form action="{{ route('cocktails.store') }}" method="POST" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="nombre" value="{{ $cocktail['strDrink'] }}">
+                    <input type="hidden" name="categoria" value="{{ $cocktail['strCategory'] }}">
+                    <input type="hidden" name="tipo_bebida" value="{{ $cocktail['strAlcoholic'] }}">
+
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-black font-bold py-2 rounded transition duration-300">
+                        Guardar
+                    </button>
+                </form>
             </div>
-
-            <form action="{{ route('cocktails.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="nombre" value="{{ $cocktail['strDrink'] }}">
-                <input type="hidden" name="categoria" value="{{ $cocktail['strCategory'] }}">
-                <input type="hidden" name="tipo_bebida" value="{{ $cocktail['strAlcoholic'] }}">
-
-                <button type="submit" class="btn-action">
-                    Guardar
-                </button>
-            </form>
-        </div>
-    @endforeach
-
+        @endforeach
+    </div>
 </div>
 
 <!-- Pop-up de éxito -->
 @if(session('success'))
-    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white p-6 rounded-md shadow-md">
-            <p>{{ session('success') }}</p>
+    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+        <div class="bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+            <p class="text-green-400 font-bold text-xl">{{ session('success') }}</p>
         </div>
     </div>
 @endif
@@ -58,57 +61,6 @@
                 $('#success-popup').fadeOut();
             }, 3000);
         @endif
-
-        $('#close-popup').click(function() {
-            $('#success-popup').fadeOut();
-        });
     });
 </script>
 @endsection
-
-<style>
-    /* Botón primario (Ver cócteles guardados) */
-    .btn-primary {
-        display: inline-block;
-        border: 1px solid #000;
-        color: #000;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        text-align: center;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: #f1f5f9;
-    }
-
-    /* Botón secundario (Crear nuevo cóctel) */
-    .btn-secondary {
-        display: inline-block;
-        border: 1px solid #10B981;
-        color: #10B981;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        text-align: center;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-secondary:hover {
-        background-color: #059669;
-        color: white;
-    }
-
-    /* Botón de acción (Guardar cóctel) */
-    .btn-action {
-        background-color: #10B981;
-        color: black;
-        padding: 0.5rem 1rem;
-        border-radius: 0.375rem;
-        border: 1px solid #D1D5DB;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-action:hover {
-        background-color: #059669;
-    }
-</style>
