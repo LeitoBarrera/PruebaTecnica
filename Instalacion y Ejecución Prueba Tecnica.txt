@@ -1,0 +1,43 @@
+Pasos para Instalar y Ejecutar el proyecto:
+
+1. Clonar el repositorio: https://github.com/LeitoBarrera/PruebaTecnica.git
+
+2. ingresar a la carpeta cd pruebaTecnica
+
+3. Instalar dependencias de PHP y Laravel: composer install
+
+4. Instalar dependencias de Node.js: npm install
+
+5. Configurar el archivo de entorno .env
+	Copiar el archivo de ejemplo: cp .env.example .env
+
+6. Editar el archivo .env para configurar tu base de datos:
+
+	DB_CONNECTION=mysql
+	DB_HOST=127.0.0.1
+	DB_PORT=3306
+	DB_DATABASE=pruebatecnica
+	DB_USERNAME=root
+	DB_PASSWORD=
+
+7. Generar la clave de la aplicación: php artisan key:generate
+
+8. Migrar las tablas de la base de datos: php artisan migrate
+
+9. Compilar los assets de Tailwind CSS
+	Iniciar Vite en otra terminal (para compilar los estilos en tiempo real): npm run dev
+
+10.Levantar el servidor de Laravel: php artisan serve
+
+11. Abrir la aplicación en el navegador
+
+Notas importantes:
+
+Siempre mantener corriendo el comando npm run dev para que los estilos de Tailwind se apliquen.
+
+12. Al ingresar pedirá un usuario y contraseña 
+	Usuario: barrerajaider22@gmail.com
+	Contraseña: Jaider1016002891		
+
+
+
