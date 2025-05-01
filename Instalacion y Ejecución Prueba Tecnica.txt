@@ -35,9 +35,17 @@ Notas importantes:
 
 Siempre mantener corriendo el comando npm run dev para que los estilos de Tailwind se apliquen.
 
-12. Al ingresar pedirá un usuario y contraseña 
-	Usuario: barrerajaider22@gmail.com
-	Contraseña: Jaider1016002891		
+12. Al ingresar pedirá un usuario y contraseña, ejecutar lo siguiente en la terminal:
+    1. php artisan tinker
+    2. Y luego esta siguiente linea de codigo en la terminal:
+    \App\Models\User::create([
+    'name' => 'Jaider Barrera',
+    'email' => 'barrerajaider22@gmail.com',
+    'password' => bcrypt('Jaider1016002891')
+]);
+    3. De esa manera se crea el usuario:
+	    Usuario: barrerajaider22@gmail.com
+	    Contraseña: Jaider1016002891		
 
 
 
